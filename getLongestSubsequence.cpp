@@ -21,8 +21,8 @@ public:
 
 int main() {
     Solution solution;
-    vector<string> words = {"apple", "banana", "cherry", "date", "elderberry"};
-    vector<int> groups = {1, 1, 2, 3, 3};
+    vector<string> words = {"e","a","b"};
+    vector<int> groups = {0,0,1};
 
     vector<string> result = solution.getLongestSubsequence(words, groups);
 
