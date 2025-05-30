@@ -4,6 +4,34 @@
 
 using namespace std;
 
+// class Solution {                         // DFS
+// public:
+//     void dfs(int row, int col, vector<vector<int>>& image, int initColor, int newColor, int m, int n) {
+//         if (row < 0 || row >= m || col < 0 || col >= n) return;
+//         if (image[row][col] != initColor) return;
+
+//         image[row][col] = newColor;
+
+//         // Move in 4 directions
+//         dfs(row - 1, col, image, initColor, newColor, m, n); // up
+//         dfs(row + 1, col, image, initColor, newColor, m, n); // down
+//         dfs(row, col - 1, image, initColor, newColor, m, n); // left
+//         dfs(row, col + 1, image, initColor, newColor, m, n); // right
+//     }
+
+//     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+//         int m = image.size();
+//         int n = image[0].size();
+//         int initColor = image[sr][sc];
+
+//         if (initColor != color) {
+//             dfs(sr, sc, image, initColor, color, m, n);
+//         }
+
+//         return image;
+//     }
+// };
+
 class Solution {
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
