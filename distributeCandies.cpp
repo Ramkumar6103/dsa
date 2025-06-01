@@ -17,13 +17,25 @@ public:
     //     return ans;
     // }
 
+    //     long long distributeCandies(int n, int limit) {       // Approach 2
+    //     long long ans = 0;
+    //     for(int i=0;i<=limit;i++){
+    //         for(int j=0;j<=limit;j++){
+    //             int k = (n-i-j);
+    //             if(k >= 0 && k <= limit) ans++;
+    //         }
+    //     }
+    //     return ans;
+    // }
+                                                                // Approach 3
         long long distributeCandies(int n, int limit) {
         long long ans = 0;
-        for(int i=0;i<=limit;i++){
-            for(int j=0;j<=limit;j++){
-                int k = (n-i-j);
-                if(k >= 0 && k <= limit) ans++;
-            }
+        for(int i=0;i<=min(n,limit);i++){
+            int rem = n-i;
+            if(rem > 2*limit) continue;
+            int j = max(0,rem-limit);
+            int k = min(rem,limit);
+            ans += k - j + 1;
         }
         return ans;
     }
