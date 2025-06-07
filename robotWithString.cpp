@@ -50,5 +50,9 @@ int main() {
     cout << "\nInput: " << input3 << endl;
     cout << "Output: " << sol.robotWithString(input3) << endl;  // Expected: "addb"
 
+        string input4 = "aaba";
+    cout << "\nInput: " << input3 << endl;
+    cout << "Output: " << sol.robotWithString(input3) << endl;
+
     return 0;
 }
