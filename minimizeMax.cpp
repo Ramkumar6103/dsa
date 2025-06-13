@@ -5,30 +5,34 @@
 using namespace std;
 
 class Solution {
+private:
+    bool findPair(vector<int>& nums, int mid, int p) {
+        int pairs = 0;
+        int n = nums.size();
+        for (int i = 1; i < n; ++i) {
+            if (nums[i] - nums[i - 1] <= mid) {  // Pair is valid
+                pairs++;
+                i++;  // Skip next element since it's already paired
+            }
+        }
+        return pairs >= p;
+    }
 public:
     int minimizeMax(vector<int>& nums, int p) {
-        if (p == 0) return 0;  // If no pairs are needed, return 0
-        sort(nums.begin(), nums.end());  // Sort the array to work with differences
-        int n = nums.size(), left = 0, right = nums[n - 1] - nums[0];  // Define search boundaries
-
-        // Binary search for the minimum max difference
-        while (left < right) {
-            int mid = left + (right - left) / 2, pairs = 0;
-            
-            // Try to form 'p' pairs with max difference <= mid
-            for (int i = 1; i < n; ++i) {
-                if (mid >= nums[i] - nums[i - 1]) {  
-                    ++pairs; // Form a pair
-                    ++i;  // Skip the next element since it's already paired
-                }
+        if (p == 0) return 0;
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        int left = 0;
+        int right = nums[n-1] - nums[0];
+        int ans = 0;
+        while(left < right){
+            int mid = left + (right - left) / 2;
+            if(findPair(nums,mid,p)){
+                right = mid;
             }
-
-            // Adjust binary search boundaries based on number of valid pairs
-            if (pairs >= p) right = mid;  // If enough pairs can be formed, reduce max difference
-            else left = mid + 1;  // Otherwise, increase max difference
+            else left = mid + 1;
         }
-        
-        return left;  // Minimum possible maximum difference
+        return left;
     }
 };
 
