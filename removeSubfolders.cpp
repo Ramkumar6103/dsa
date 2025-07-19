@@ -1,11 +1,10 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
+#include<bits/stdc++.h>
 using namespace std;
 
 class Solution {
 public:
     vector<string> removeSubfolders(vector<string>& folder) {
+        sort(folder.begin(), folder.end());
         vector<string> str;
         unordered_map<string,int> check;
         for(int i = 0; i < folder.size(); i++) {
@@ -38,12 +37,41 @@ public:
         }
         return str;
     }
+
+    //     vector<string> removeSubfolders(vector<string>& folder) {
+    //     unordered_set<string> dirSet(folder.begin(), folder.end());
+    //     vector<string> res;
+    //     for (const string& dir : folder) {
+    //         res.push_back(dir);
+    //         for (int i = 0; i < dir.size(); ++i) {
+    //             if (dir[i] == '/' && dirSet.count(dir.substr(0, i))) {
+    //                 res.pop_back();
+    //                 break;
+    //             }
+    //         }
+    //     }
+        
+    //     return res;
+    // }
+
+    // vector<string> removeSubfolders(vector<string>& folder) {
+    //     sort(folder.begin(), folder.end());
+    //     vector<string> result;
+
+    //     for (const string& path : folder) {
+    //         if (result.empty() || path.compare(0, result.back().size(), result.back()) != 0 || path[result.back().size()] != '/') {
+    //             result.push_back(path);
+    //         }
+    //     }
+
+    //     return result;
+    // }
 };
 
 int main() {
     Solution solution;
     vector<string> folder = {"/a","/a/b","/c/d","/c/d/e","/c/f"};
-
+    // vector<string> folder = {"/a/b/c","/abc/d"};
     vector<string> result = solution.removeSubfolders(folder);
 
     cout << "Filtered folders:\n";
