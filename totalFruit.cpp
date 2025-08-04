@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int start = 0, maxLen = 0;
+        unordered_map<int, int> basket;
+
+        for (int end = 0; end < fruits.size(); ++end) {
+            basket[fruits[end]]++;
+
+            while (basket.size() > 2) {
+                basket[fruits[start]]--;
+                if (basket[fruits[start]] == 0) {
+                    basket.erase(fruits[start]);
+                }
+                start++;
+            }
+
+            maxLen = max(maxLen, end - start + 1);
+        }
+
+        return maxLen;
+    }
+};
+
+int main() {
+    Solution sol;
+    vector<int> fruits = {1, 2, 1, 2, 3}; // sample input
+    int result = sol.totalFruit(fruits);
+    cout << "Maximum number of fruits: " << result << endl;
+    return 0;
+}
