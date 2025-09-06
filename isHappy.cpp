@@ -12,13 +12,12 @@ private:
             n = n / 10;
             ans.push_back(d);
         }
-        reverse(ans.begin(), ans.end());
+        // reverse(ans.begin(),ans.end());
         return ans;
     }
-
 public:
     bool isHappy(int n) {
-        while(n > 9){
+        while(n != 1 && n != 4 ){
             vector<int> ans;
             ans = convertArray(n);
             int temp = 0;
