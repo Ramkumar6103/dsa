@@ -17,17 +17,6 @@ int main() {
     // Example input
     vector<int> nums = {3, 9, 7};
     int k = 5;
-    // cout << "Enter number of elements: ";
-    // cin >> n;
-
-    // vector<int> nums(n);
-    // cout << "Enter " << n << " elements: ";
-    // for (int i = 0; i < n; i++) {
-    //     cin >> nums[i];
-    // }
-
-    // cout << "Enter k: ";
-    // cin >> k;
 
     Solution sol;
     int result = sol.minOperations(nums, k);
