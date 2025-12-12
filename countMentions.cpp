@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> countMentions(int numberOfUsers, vector<vector<string>>& events) {
+        map<int, vector<vector<string>>> byTime;
+        for (auto &ev : events) {
+            int t = stoi(ev[1]);
+            byTime[t].push_back(ev);
+        }
+
+        vector<int> mentions(numberOfUsers, 0);
+        vector<bool> isOnline(numberOfUsers, true);
+        vector<int> offlineUntil(numberOfUsers, 0);
+
+        for (auto &entry : byTime) {
+            int t = entry.first;
+            auto &evs = entry.second;
+
+            // Bring users back online if their offline period ended
+            for (int i = 0; i < numberOfUsers; ++i) {
+                if (!isOnline[i] && offlineUntil[i] <= t) {
+                    isOnline[i] = true;
+                    offlineUntil[i] = 0;
+                }
+            }
+
+            // Process OFFLINE events
+            for (auto &ev : evs) {
+                if (ev[0] == "OFFLINE") {
+                    int id = stoi(ev[2]);
+                    isOnline[id] = false;
+                    offlineUntil[id] = t + 60;
+                }
+            }
+
+            // Process MESSAGE events
+            for (auto &ev : evs) {
+                if (ev[0] != "MESSAGE") continue;
+
+                string mentionsStr = ev[2];
+                string token;
+                stringstream ss(mentionsStr);
+
+                while (ss >> token) {
+                    if (token == "ALL") {
+                        for (int i = 0; i < numberOfUsers; ++i)
+                            mentions[i]++;
+                    } 
+                    else if (token == "HERE") {
+                        for (int i = 0; i < numberOfUsers; ++i)
+                            if (isOnline[i]) mentions[i]++;
+                    } 
+                    else if (token.rfind("id", 0) == 0) {
+                        int id = stoi(token.substr(2));
+                        if (0 <= id && id < numberOfUsers)
+                            mentions[id]++;
+                    }
+                }
+            }
+        }
+
+        return mentions;
+    }
+};
+
+int main() {
+    // ✅ Hardcoded sample input
+    int numberOfUsers = 3;
+
+    vector<vector<string>> events = {
+        {"MESSAGE", "10", "ALL"},
+        {"OFFLINE", "20", "1"},
+        {"MESSAGE", "25", "HERE"},
+        {"MESSAGE", "80", "id2"}
+    };
+
+    Solution sol;
+    vector<int> ans = sol.countMentions(numberOfUsers, events);
+
+    cout << "Output: ";
+    for (int x : ans) cout << x << " ";
+    cout << "\n";
+
+    return 0;
+}
