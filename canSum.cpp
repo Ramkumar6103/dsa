@@ -24,7 +24,7 @@ public:
 int main() {
     Solution sol;
     vector<int> nums = {5, 3, 4};
-    int targetSum = 7;
+    int targetSum = 2;
     cout<<sol.canSum(nums, targetSum);
     return 0;
 }
