@@ -1,38 +1,38 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int getSecondLargest(vector<int> &arr) {
-        // Code Here
-        int l = arr[0];
-        int sl = -1;
-        for(int i=0;i<arr.size();i++)
-        {
-            if(l<arr[i])
-            {
-                sl = l;
-                l = arr[i];
-            }
-            else if(l>arr[i] && arr[i]> sl)
-            {
-                sl = arr[i];
-            }
+
+int getSecondSmallest(vector<int> &arr) {
+
+    if (arr.size() < 2)
+        return -1;   // Not possible
+
+    int smallest = INT_MAX;
+    int secondSmallest = INT_MAX;
+
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] < smallest) {
+            secondSmallest = smallest;
+            smallest = arr[i];
         }
-        return sl;
+        else if (arr[i] > smallest && arr[i] < secondSmallest) {
+            secondSmallest = arr[i];
+        }
     }
-int main()
-{
-    vector<int> arr;
-    arr.push_back(3);
-    arr.push_back(9);
-    arr.push_back(1);
-    arr.push_back(8);
-    arr.push_back(2);
-    arr.push_back(7);
-    arr.push_back(4);
-    cout<<"The array elements are:";
-    for(auto it:arr)
-    {
-        cout<<it<<" ";
+
+    if (secondSmallest == INT_MAX)
+        return -1;   // No second smallest (all same elements)
+
+    return secondSmallest;
+}
+
+int main() {
+    vector<int> arr = {3, 9, 1, 8, 2, 7, 4};
+
+    cout << "The array elements are: ";
+    for (auto it : arr) {
+        cout << it << " ";
     }
-    cout<<"\nSecond smallest element: "<<getSecondLargest(arr);
+
+    cout << "\nSecond smallest element: " << getSecondSmallest(arr);
     return 0;
 }
